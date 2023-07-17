@@ -1,6 +1,8 @@
-const inquirer = require('inquirer');
-const fs = require('fs');
+// Importing the necessary modules
+const inquirer = require('inquirer'); // Package for user input
+const fs = require('fs'); // File system module
 
+// Function to prompt the user for input
 function getUserInput() {
   return inquirer.prompt([
     {
@@ -24,6 +26,7 @@ function getUserInput() {
   ]);
 }
 
+// Function to generate the logo
 function generateLogo() {
   getUserInput().then((answers) => {
     const { logoText, textColor, shape, shapeColor } = answers;
@@ -34,12 +37,13 @@ function generateLogo() {
       shape,
       shapeColor
     );
-    saveSvgToFile('logo.svg', svgContent);
+    saveSvgToFile('logo.svg', svgContent); // Saving the SVG to a file
 
     console.log('Logo generated successfully!');
   });
 }
 
+// Function to create the SVG content
 function createSvgContent(text, color, shapeType, shapeColor) {
   let shapeElement = '';
   if (shapeType === 'circle') {
@@ -52,28 +56,34 @@ function createSvgContent(text, color, shapeType, shapeColor) {
 
   const textElement = createTextElement(text, color);
 
+  // Generating the SVG content with the shape and text elements
   return `<svg xmlns="http://www.w3.org/2000/svg" width="300" height="200">
             ${shapeElement}
             ${textElement}
           </svg>`;
 }
 
+// Function to create the SVG circle element
 function createCircleElement(color) {
   return `<circle cx="150" cy="100" r="50" fill="${color}" />`;
 }
 
+// Function to create the SVG triangle element
 function createTriangleElement(color) {
   return `<polygon points="150,50 100,150 200,150" fill="${color}" />`;
 }
 
+// Function to create the SVG square element
 function createSquareElement(color) {
   return `<rect x="50" y="50" width="200" height="100" fill="${color}" />`;
 }
 
+// Function to create the SVG text element
 function createTextElement(text, color) {
   return `<text x="150" y="100" fill="${color}" text-anchor="middle">${text}</text>`;
 }
 
+// Function to save the SVG content to a file
 function saveSvgToFile(filename, content) {
   fs.writeFile(filename, content, (err) => {
     if (err) {
@@ -82,4 +92,5 @@ function saveSvgToFile(filename, content) {
   });
 }
 
+// Generating the logo
 generateLogo();

@@ -1,4 +1,5 @@
-const { createSvgContent } = require('./your-svg-code-file');
+const { createSvgContent } = require('./index');
+// import correct jest
 
 describe('createSvgContent', () => {
   test('should return the correct SVG content for a circle shape', () => {
